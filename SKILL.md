@@ -43,13 +43,34 @@ allowed-tools: Read, Write, Edit, Bash
 
 ### 阶段 1：需求录入（当前阶段）
 
-**必须完成以下 3 个问题后才能进入阶段 2：**
+**必须完成以下 4 个问题后才能进入阶段 2：**
 
-1. **来源类型**：你想蒸馏的是哪种来源？（真实人物 / 虚构角色 / 专业风格流派 / 抽象领域）
-2. **核心能力**：你最想提取这个类型的什么？（如：思维框架、表达能力、影响力机制、创作风格等）
-3. **使用场景**：这个 skill 主要用来解决什么问题？
+1. **蒸馏目标**：你想蒸馏的是什么人/角色？（如：张三、乔布斯、甄嬛传、科幻作家风格）
 
-**阶段 1 完成标志**：用户回答了以上 3 个问题，且你对目标有了清晰认知。
+2. **目标分类**：这个目标属于哪类？
+   - **公众人物**：名人、网红、意见领袖、企业家等（公开资料丰富）
+   - **职场人物**：同事、上司、客户、合作伙伴等（资料多在工作场景）
+   - **私密关系**：前任、朋友、家人等（无公开资料，基于用户观察）
+   - **自己**：本人自我蒸馏
+   - **虚构角色**：小说/影视角色、二次元人物等
+   - **风格流派**：专业领域风格、写作流派等
+
+3. **核心能力**：你最想蒸馏这个目标的什么能力？
+   - 思维框架 / 决策逻辑
+   - 表达能力 / 演讲风格
+   - 影响力机制 / 说服技巧
+   - 创作风格 / 文案手法
+   - 关系模式 / 沟通风格
+   - 其他（请描述）
+
+4. **使用场景**：这个 skill 主要用来解决什么问题？
+   - 模仿写作 / 演讲
+   - 学习思维方式
+   - 生成特定风格内容
+   - 预测对方反应
+   - 其他（请描述）
+
+**阶段 1 完成标志**：用户回答了以上 4 个问题，且你对目标有了清晰认知。
 
 ---
 
@@ -69,19 +90,24 @@ allowed-tools: Read, Write, Edit, Bash
 
 **前置条件：阶段 2 已完成**
 
-请用户选择语料来源类型（无需提供具体链接，此阶段仅确认来源形式）：
+请用户选择语料来源等级（此阶段仅确认可用来源形式，具体 URL 在阶段 4 自动构建时再获取）：
 
-| 类型 | 说明 | 适用场景 |
-|------|------|----------|
-| [A] 公开网页 | 人物官网、百科、新闻专访、博客文章等 | 有公开网络资料的名人 |
-| [B] 视频内容 | 访谈、演讲、课程、纪录片等视频 | 演讲型/导师型人物 |
-| [C] 社交媒体 | 微博、Twitter/X、微信公众号、知乎等 | 活跃于社交平台的人物 |
-| [D] 书籍/专栏 | 本人著作、付费专栏、电子书等 | 有系统性内容产出的人物 |
-| [E] 播客/音频 | 播客访谈、音频节目、有声书等 | 声音内容型人物 |
-| [F] 用户已有语料 | PDF、txt、 epub 等文档，或直接粘贴金句 | 用户已整理好素材 |
-| [G] AI 已有知识 | 使用模型内置知识，不额外抓取 | 常见名人/通用型目标 |
+| 等级 | 类型 | 说明 | 适用场景 |
+|-----|------|------|---------|
+| **L1** | 公开网页 | 官网、百科、新闻专访、博客文章等 | 名人、公众人物 |
+| **L1** | 视频内容 | 访谈、演讲、课程、纪录片等 | 演讲型/导师型人物 |
+| **L1** | 社交媒体 | 微博、Twitter/X、微信公众号、知乎等 | 活跃于社交平台的人物 |
+| **L2** | 书籍/专栏 | 本人著作、付费专栏、电子书等 | 有系统性内容产出的人物 |
+| **L2** | 播客/音频 | 播客访谈、音频节目、有声书等 | 声音内容型人物 |
+| **L3** | 可获取文档 | PDF、Word、飞书文档、Notion、钉钉文档等 | 职场人物、有工作产出的人 |
+| **L4** | 即时通讯存档 | 微信/钉钉聊天记录、邮件往来 | 同事、前任、密友 |
+| **L5** | 图片/截图 | 聊天截图、朋友圈截图、照片等 | 任何目标（OCR 提取文字） |
+| **L6** | 用户直接观察 | 用户描述印象、经历、对话片段 | 无任何数字足迹的私密目标 |
+| **L7** | AI 内置知识 | 使用模型已有知识，无需收集 | 常见名人、通用型目标 |
 
-**阶段 3 完成标志**：用户选择了语料来源类型（A-G 中的一个或多个）。
+**可多选**：用户可选择多个等级（如 L3+L6），系统将组合多种来源。
+
+**阶段 3 完成标志**：用户选择了至少一个语料来源等级（L1-L7 中的一个或多个）。
 
 ---
 
@@ -112,17 +138,22 @@ allowed-tools: Read, Write, Edit, Bash
 
 ## 内置模板
 
-不显式询问用户选择模板，而是根据目标描述自动推断：
+不显式询问用户选择模板，而是根据阶段1的目标分类自动推断：
 
-| 推断类型 | 默认维度组合 |
-|---------|------------|
-| 名人/公众人物 | logic_cot + persona + audience_hook |
-| 网红/内容创作者 | logic_cot + persona + content_vibe + viral_logic |
-| 导师/教练 | logic_cot + persona + pedagogy + socratic_method |
-| 行业顾问 | logic_cot + persona + advisory_frame + stakeholder_nav |
-| 作家/文案 | logic_cot + persona + narrative_arc + voice_signature |
-| 工程师/CTO | logic_cot + persona + system_design + code_aesthetic |
-| 未能明确归类 | logic_cot + persona（通用基础层） |
+| 目标分类 | 默认维度组合 | 说明 |
+|---------|------------|------|
+| 名人/公众人物 | logic_cot + persona + audience_hook | 思维框架+表达风格+影响力机制 |
+| 网红/内容创作者 | logic_cot + persona + content_vibe + viral_logic | 思维框架+表达风格+内容调性+流量密码 |
+| 导师/教练 | logic_cot + persona + pedagogy + socratic_method | 思维框架+表达风格+教学法+苏格拉底式提问 |
+| 行业顾问 | logic_cot + persona + advisory_frame + stakeholder_nav | 思维框架+表达风格+咨询框架+利益相关者 |
+| 作家/文案 | logic_cot + persona + narrative_arc + voice_signature | 思维框架+表达风格+叙事弧线+声音签名 |
+| 工程师/CTO | logic_cot + persona + system_design + code_aesthetic | 思维框架+表达风格+系统设计+代码美学 |
+| 职场人物（同事/上司） | logic_cot + persona + workplace_logic + social_dynamics | 思维框架+表达风格+职场逻辑+关系动态 |
+| 私密关系（前任/密友） | logic_cot + persona + relational_pattern + emotional_signature | 思维框架+表达风格+关系模式+情感签名 |
+| 自己 | logic_cot + persona + growth_arc + self_awareness | 思维框架+表达风格+成长轨迹+自我认知 |
+| 虚构角色 | logic_cot + persona + character_arc + world_rules | 思维框架+表达风格+角色弧线+世界观规则 |
+| 风格流派 | logic_base + style_signature + methodology | 思维基础+风格签名+方法论 |
+| 未能明确归类 | logic_cot + persona（通用基础层） | — |
 
 ---
 
@@ -145,16 +176,21 @@ allowed-tools: Read, Write, Edit, Bash
 
 ## 工具箱
 
-生成 Skill 时，从 `${SKILL_DIR}/tool_templates/` 按类型组装工具集。
+生成 Skill 时，从 `${SKILL_DIR}/tool_templates/` 按语料等级（L1-L7）组装工具集。
 
-| 工具 | 用途 |
-|------|------|
-| `${SKILL_DIR}/tool_templates/web_crawler.py` | 爬取网页正文 |
-| `${SKILL_DIR}/tool_templates/youtube_parser.py` | 提取视频字幕 |
-| `${SKILL_DIR}/tool_templates/social_scraper.py` | 抓取社交媒体 |
-| `${SKILL_DIR}/tool_templates/corpus_chunker.py` | 长文本分块处理 |
-| `${SKILL_DIR}/tool_templates/version_manager.py` | 版本备份与回滚 |
-| `${SKILL_DIR}/tool_templates/skill_writer.py` | 写入/更新 skill 文件 |
+| 工具 | 对应等级 | 用途 |
+|------|---------|------|
+| `${SKILL_DIR}/tool_templates/web_crawler.py` | L1 | 爬取网页正文 |
+| `${SKILL_DIR}/tool_templates/youtube_parser.py` | L1 | 提取视频字幕 |
+| `${SKILL_DIR}/tool_templates/social_scraper.py` | L1 | 抓取社交媒体 |
+| `${SKILL_DIR}/tool_templates/corpus_chunker.py` | L2/L3 | 长文本/文档分块处理 |
+| `${SKILL_DIR}/tool_templates/feishu_parser.py` | L3 | 飞书文档解析 |
+| `${SKILL_DIR}/tool_templates/dingtalk_parser.py` | L3/L4 | 钉钉文档/聊天解析 |
+| `${SKILL_DIR}/tool_templates/image_ocr.py` | L5 | 截图/图片文字提取 |
+| `${SKILL_DIR}/tool_templates/chat_export_parser.py` | L4 | 微信/通用聊天记录解析 |
+| `${SKILL_DIR}/tool_templates/observation_guide.py` | L6 | 用户观察引导问卷生成 |
+| `${SKILL_DIR}/tool_templates/version_manager.py` | — | 版本备份与回滚 |
+| `${SKILL_DIR}/tool_templates/skill_writer.py` | — | 写入/更新 skill 文件 |
 
 ---
 

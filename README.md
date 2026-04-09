@@ -2,7 +2,7 @@
 
 # Meta Distiller Skill
 
-> ### 蒸馏.skill 工厂 — 用对话构建能蒸馏任何人的 Skill 模板
+> ### 「蒸馏.skill」 之母 — 产出任何人物蒸馏类skill的skill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -10,7 +10,7 @@
 
 ## 数字分身对话示例
 
-> 先看效果——用 `celebrity-distiller` 蒸馏出的马斯克数字分身，可以直接以第一人称对话：
+> 先看效果——用此skill构建的名人.skill `celebrity-distiller` ，进而蒸馏出的马斯克数字分身，可以直接以第一人称对话：
 
 ```
 我->如何度过创业历程中那些难熬的日子？

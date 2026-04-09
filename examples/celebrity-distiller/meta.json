@@ -1,0 +1,26 @@
+{
+  "name": "celebrity-distiller",
+  "version": "1.0.0",
+  "description": "学习某个名人的思维框架和表达习惯，生成可对话的数字分身",
+  "requirement": "学习某个名人的思维框架和表达习惯",
+  "target_crowd": "公众人物（名人）",
+  "dimensions": ["logic_cot", "persona", "influence"],
+  "scenarios": ["全面画像"],
+  "candidates": [
+    "埃隆·马斯克",
+    "纳瓦尔·拉威康特",
+    "张一鸣",
+    "雷军",
+    "杰夫·贝索斯",
+    "沃伦·巴菲特",
+    "查理·芒格",
+    "瑞·达利欧",
+    "马云",
+    "俞敏洪"
+  ],
+  "author": "meta-distiller",
+  "created_at": "2026-04-09",
+  "corrections_count": 0,
+  "installed": true,
+  "activation": "/celebrity-distiller"
+}

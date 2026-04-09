@@ -57,11 +57,16 @@ git clone https://github.com/unbound9527/meta-distiller-skill.git ~/.claude/skil
 
 ## 蒸馏案例
 
+### celebrity-distiller（名人蒸馏）
+> 蒸馏名人的思维框架和表达习惯，生成可对话的数字分身
+
+**子案例：**
 | 名称 | 说明 |
 |------|------|
 | elon-musk | 马斯克数字分身 — 包含完整的三维分析框架与第一人称对话能力 |
 
-> 更多蒸馏案例持续添加中...
+### 更多蒸馏案例
+> 更多蒸馏.skill 案例持续添加中...
 
 ## 项目结构
 
@@ -94,7 +99,13 @@ meta-distiller-skill/
 │   ├── image_ocr.py           # 图片 OCR
 │   └── observation_guide.py   # 观察指南
 ├── examples/                  # 蒸馏案例
-│   └── elon-musk/             # 马斯克数字分身示例
+│   └── celebrity-distiller/    # 蒸馏.skill 案例
+│       ├── SKILL.md           # 蒸馏.skill 模板
+│       ├── meta.json          # 元数据
+│       └── elon-musk/         # 子案例：马斯克数字分身
+│           ├── SKILL.md
+│           ├── meta.json
+│           └── references/
 └── LICENSE
 ```
 
@@ -110,7 +121,7 @@ meta-distiller：好的，请回答几个问题...
 meta-distiller：✅ 蒸馏.skill 构建完成！
 ```
 
-### 使用蒸馏.skill
+### 使用蒸馏.skill（案例：celebrity-distiller）
 
 ```
 你：/celebrity-distiller

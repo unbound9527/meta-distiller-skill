@@ -9,6 +9,11 @@
 </div>
 
 用这个skill工厂你能得到名人.skill、网红.skill、教师.skill...
+meta-distiller（skill工厂）
+└── 产出：「蒸馏.skill」
+    └── 用户激活「蒸馏.skill」
+        └── 运行时问：蒸馏谁？
+            └── 产出：马斯克 lens、乔布斯 lens...
 
 ## 数字分身对话示例
 

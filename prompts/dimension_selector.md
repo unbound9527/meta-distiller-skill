@@ -1,22 +1,26 @@
 # 维度选择逻辑
 
+## 设计原则
+
+meta-distiller 根据用户选择的「蒸馏.skill」目标人群，自动推荐维度组合。不执行任何实际调研。
+
 ## 选择算法
 
 ```
-输入：阶段1收集的信息（目标分类 + 核心能力 + 使用场景）
-输出：维度组合列表 + 推荐语料等级
+输入：阶段1收集的信息（目标人群 + 核心维度 + 使用场景）
+输出：维度组合列表
 
-1. 根据目标分类直接确定基础维度组合（无需匹配）
-2. 根据核心能力追加额外维度
+1. 根据目标人群直接确定基础维度组合（无需匹配）
+2. 根据核心维度追加额外维度
 3. 根据使用场景调整维度优先级
-4. 输出维度组合 + 推荐语料收集等级
+4. 输出维度组合供阶段2确认
 ```
 
-## 目标分类 → 基础维度组合（直接映射）
+## 目标人群 → 基础维度组合（直接映射）
 
-| 目标分类 | 基础维度组合 | 推荐语料等级 |
+| 目标人群 | 基础维度组合 | 推荐语料等级 |
 |---------|------------|-------------|
-| 名人/公众人物 | logic_cot + persona + audience_hook | L1（公开网页/视频/社交媒体） |
+| 公众人物 | logic_cot + persona + audience_hook | L1（公开网页/视频/社交媒体） |
 | 网红/内容创作者 | logic_cot + persona + content_vibe + viral_logic | L1 + L2 |
 | 导师/教练 | logic_cot + persona + pedagogy + socratic_method | L1 + L2 |
 | 行业顾问 | logic_cot + persona + advisory_frame + stakeholder_nav | L1 + L2 |
@@ -27,11 +31,11 @@
 | 自己 | logic_cot + persona + growth_arc + self_awareness | L3 + L4 + L6 |
 | 虚构角色 | logic_cot + persona + character_arc + world_rules | L2（原作） + L6 |
 | 风格流派 | logic_base + style_signature + methodology | L1 + L2 |
-| 未能明确归类 | logic_cot + persona（通用基础层） | L6 |
+| 通用（不限人群） | logic_cot + persona（通用基础层） | L6 |
 
-## 核心能力追加规则
+## 核心维度追加规则
 
-如果在核心能力描述中出现以下关键词，追加对应维度：
+如果在用户选择的核心维度中出现以下关键词，追加对应维度：
 
 | 关键词 | 追加维度 |
 |--------|---------|
@@ -95,6 +99,6 @@
 
 ## 默认兜底
 
-如果目标分类不明确，默认使用：
+如果目标人群不明确，默认使用：
 - **维度**：logic_cot + persona
 - **语料等级**：L6（用户观察）

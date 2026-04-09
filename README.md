@@ -1,20 +1,20 @@
 # Meta Distiller Skill
 
-<p align="center">
+<div align="center">
 
-> 蒸馏.skill 工厂母机 — 通过对话引导构建「蒸馏.skill」
+> ### 蒸馏之母 — 让每个人都能蒸馏出自己的数字分身
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-</p>
+</div>
 
 ## 是什么
 
-<p align="center">
+<div align="center">
 
 **一个能让人"复制"任何牛人的思维方式和表达风格的工具**
 
-</p>
+</div>
 
 你可以把它理解为一个**数字分身制造机**——
 

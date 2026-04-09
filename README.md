@@ -55,33 +55,47 @@ git clone https://github.com/unbound9527/meta-distiller-skill.git ~/.claude/skil
 
 按照引导对话，完成 6 个阶段的配置。
 
-## 内置蒸馏.skill
+## 蒸馏案例
 
-| 名称 | 触发词 | 说明 |
-|------|--------|------|
-| celebrity-distiller | `/celebrity-distiller` | 蒸馏名人的思维框架和表达习惯 |
+| 名称 | 说明 |
+|------|------|
+| elon-musk | 马斯克数字分身 — 包含完整的三维分析框架与第一人称对话能力 |
+
+> 更多蒸馏案例持续添加中...
 
 ## 项目结构
 
 ```
 meta-distiller-skill/
 ├── SKILL.md                    # 工厂母机 Skill 定义
-├── meta.json                   # 元数据
-├── dimensions/                  # 维度定义（17个）
+├── dimensions/                 # 维度定义（12个）
+│   ├── logic_base.md          # 逻辑基础
 │   ├── logic_cot.md           # 思维框架
-│   ├── persona.md              # 表达风格
-│   └── ...
-├── prompts/                    # 提示词模板
-│   ├── agent_swarm.md
-│   ├── dimension_selector.md
-│   └── ...
-├── tool_templates/             # 工具模板
-│   ├── corpus_collector.py
-│   ├── corpus_chunker.py
-│   └── ...
-├── examples/                   # 示例
-│   └── elon-musk/            # 马斯克数字分身示例
-└── docs/                       # 设计文档
+│   ├── growth_arc.md          # 成长轨迹
+│   ├── self_awareness.md      # 自我认知
+│   ├── methodology.md         # 方法论
+│   ├── relational_pattern.md  # 关系模式
+│   ├── social_dynamics.md     # 社交动态
+│   ├── style_signature.md     # 风格签名
+│   ├── workplace_logic.md     # 职场逻辑
+│   ├── world_rules.md         # 世界规则
+│   ├── character_arc.md       # 角色弧线
+│   └── emotional_signature.md # 情感签名
+├── prompts/                   # 提示词模板
+│   ├── agent_swarm.md         # Subagent 工作流编排
+│   ├── dimension_selector.md  # 维度选择器
+│   ├── extraction_framework.md # 语料提取框架
+│   ├── intake_template.md     # 运行时问题模板
+│   └── skill_assembler.md     # Skill 组装模板
+├── tool_templates/            # 工具模板
+│   ├── chat_export_parser.py  # 聊天记录解析
+│   ├── dingtalk_parser.py     # 钉钉记录解析
+│   ├── feishu_parser.py       # 飞书记录解析
+│   ├── image_ocr.py           # 图片 OCR
+│   └── observation_guide.py   # 观察指南
+├── examples/                  # 蒸馏案例
+│   └── elon-musk/             # 马斯克数字分身示例
+└── LICENSE
 ```
 
 ## 使用示例
@@ -128,21 +142,30 @@ celebrity-distiller（蒸馏.skill）
 lens/{person}/SKILL.md（数字分身）
 ```
 
-### 维度体系
+### 维度体系（12个维度）
 
 | 维度 | 说明 |
 |------|------|
+| logic_base | 逻辑基础 |
 | logic_cot | 思维框架（第一性原理、推理模式）|
-| persona | 表达风格（语言特征、叙事策略）|
-| influence_pattern | 说服影响力（受众定位、影响策略）|
+| growth_arc | 成长轨迹 |
+| self_awareness | 自我认知 |
+| methodology | 方法论 |
+| relational_pattern | 关系模式 |
+| social_dynamics | 社交动态 |
+| style_signature | 风格签名 |
+| workplace_logic | 职场逻辑 |
+| world_rules | 世界规则 |
+| character_arc | 角色弧线 |
+| emotional_signature | 情感签名 |
 
 ## 开发指南
 
-### 贡献新的蒸馏.skill
+### 贡献新的蒸馏案例
 
 1. Fork 本仓库
-2. 在 `distilled_skills/` 创建你的蒸馏.skill
-3. 添加测试和文档
+2. 在 `examples/` 创建新的蒸馏案例（如 `examples/{person-slug}/`）
+3. 包含 SKILL.md、meta.json 和 references/analysis/ 分析结果
 4. 提交 Pull Request
 
 ### 添加新的维度

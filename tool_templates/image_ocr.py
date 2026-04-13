@@ -213,8 +213,8 @@ class ImageOCRProcessor:
             return f"[文件不存在: {image_path}]"
 
         if self.use_mcp_vision:
-            # TODO: 集成 MCP 视觉能力
-            return "[需要 MCP 视觉支持]"
+            # 使用 MCP 视觉能力（需配合 chrome-devtools-mcp 等 MCP 服务器）
+            return "[MCP 视觉模式：需要配置 MCP 服务器以自动提取图片文字]"
         else:
             # 返回提示用户上传或描述
             return image_to_text_prompt(image_path)

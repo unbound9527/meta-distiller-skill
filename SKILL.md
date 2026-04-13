@@ -384,7 +384,20 @@ workflow:
 
 #### 4.3 工具脚本
 
-创建可用的 Python 工具脚本（至少包含语料采集和分块工具）。
+**⚠️ 强制性约束：所有工具脚本必须完整可用，禁止包含 TODO/FIXME 占位符。**
+
+创建以下 Python 工具脚本，每个脚本必须包含完整实现：
+
+| 工具 | 文件 | 职责 |
+|------|------|------|
+| `web_crawler` | `tools/web_crawler.py` | 爬取网页正文（requests + BeautifulSoup） |
+| `youtube_parser` | `tools/youtube_parser.py` | 提取 YouTube/Bilibili 字幕 |
+| `social_scraper` | `tools/social_scraper.py` | 抓取社交媒体内容（Twitter/X） |
+| `corpus_chunker` | `tools/corpus_chunker.py` | 长文本分块（第一人称逻辑模式） |
+| `version_manager` | `tools/version_manager.py` | 版本备份与回滚 |
+| `skill_writer` | `tools/skill_writer.py` | Skill 文件写入/更新/列表/删除 |
+
+**验收标准：每个脚本的 `if __name__ == "__main__":` 块必须能独立运行并产出有效输出。**
 
 **阶段 4 完成标志**：「蒸馏.skill」完整构建完成。
 
@@ -394,17 +407,18 @@ workflow:
 
 **前置条件：阶段 4 已完成**
 
-根据人群类型，补充专用工具：
+根据人群类型，从 `tool_templates/` 目录选择适用的工具模板并复制到 `distilled_skills/{slug}/tools/`：
 
-| 人群类型 | 专用工具 |
+| 人群类型 | 优先工具 |
 |---------|---------|
-| 公众人物 | youtube_parser.py, twitter_scraper.py, article_collector.py |
-| 职场人物 | email_analyzer.py, meeting_extractor.py |
-| 虚构角色 | wiki_scraper.py, script_parser.py, wiki_data_extractor.py |
-| 自己 | reflection_template.py, timeline_builder.py |
-| 亲密关系 | chat_parser.py, memory_reconstructor.py |
+| 公众人物 | youtube_parser.py, social_scraper.py, web_crawler.py |
+| 职场人物 | web_crawler.py, corpus_chunker.py, skill_writer.py |
+| 虚构角色 | web_crawler.py, corpus_chunker.py |
+| 自己 | corpus_chunker.py, skill_writer.py |
+| 亲密关系 | corpus_chunker.py, skill_writer.py |
+| 通用 | web_crawler.py, corpus_chunker.py |
 
-确保每个工具都是可执行的（完整的 Python 脚本）。
+**所有工具必须完整可用，不允许有任何 TODO 占位符。** 如果模板工具不满足需求，必须自行实现完整逻辑后方可使用。
 
 ---
 
@@ -480,10 +494,13 @@ distilled_skills/{slug}/              # 蒸馏.skill 模板
 ├── meta.json                        # 元数据
 ├── agents/
 │   └── distiller.yaml               # subagent 工作流配置
-├── tools/
-│   ├── corpus_collector.py          # 语料采集工具
-│   ├── corpus_chunker.py            # 语料分块工具
-│   └── lens_assembler.py            # lens 组装工具
+├── tools/                           # 工具脚本（必须完整可用）
+│   ├── web_crawler.py               # 网页正文爬取
+│   ├── youtube_parser.py            # 视频字幕提取
+│   ├── social_scraper.py            # 社交媒体抓取
+│   ├── corpus_chunker.py            # 长文本分块
+│   ├── version_manager.py           # 版本备份回滚
+│   └── skill_writer.py              # Skill 文件写入
 └── templates/
     ├── intake_questions.md
     ├── dimension_selector.md
@@ -524,3 +541,5 @@ lens/{person-slug}/                  # 蒸馏产出物（具体人 lens）
 - 构建任何"群体 lens"或群体对比能力
 - 在蒸馏.skill 模板中预设具体人信息
 - 产出不可用的半成品
+- **在工具脚本中使用 TODO/FIXME 占位符**（无论是本 skill 还是产出的 skill）
+- **产出的 skill 包含任何不完整的工具**

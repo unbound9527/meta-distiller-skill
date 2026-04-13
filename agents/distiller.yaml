@@ -1,0 +1,90 @@
+name: "{slug}-distiller"
+description: "蒸馏 {人群类型} 的 {维度组合}"
+
+workflow:
+  step1:
+    name: "语料采集"
+    agent: "general-purpose"
+    prompt: |
+      根据用户指定的人物，采集公开语料：
+      - 搜索该人物的访谈、文章、演讲、社交媒体
+      - 按优先级整理：深度内容 > 短内容 > 报道
+      - 输出到 corpus/{person}/raw/
+      - 使用 WebFetch 和 mcp__MiniMax__web_search 工具采集网页内容
+    tools:
+      - WebFetch
+      - mcp__MiniMax__web_search
+    output: "corpus/{person}/raw/"
+
+  step2:
+    name: "维度分析"
+    agent: "general-purpose"
+    depends_on: ["step1"]
+    prompt: |
+      对采集的语料进行维度分析：
+      - D1: {维度1分析说明}
+      - D2: {维度2分析说明}
+      - D3: {维度3分析说明}
+      - 结合 prompts/cot_analyzer.md 进行思维链分析
+      - 结合 prompts/persona_analyzer.md 进行人格分析
+      - 结合 prompts/boundary_builder.md 进行边界设定
+      - 输出到 corpus/{person}/analysis/
+    tools:
+      - Read
+      - Write
+      - Glob
+    output: "corpus/{person}/analysis/"
+
+  step3:
+    name: "Lens组装"
+    agent: "general-purpose"
+    depends_on: ["step2"]
+    prompt: |
+      将分析结果组装成 SKILL.md：
+      - 提炼一句话定位
+      - 提取高频词汇
+      - 提炼代表性观点
+      - **必须包含第一人称对话模块**
+      - 使用 skill_writer.py 工具写入文件
+      - **必须确保所有工具脚本完整可用，不得使用任何含 TODO 的工具**
+      - 输出到 lens/{person-slug}/SKILL.md
+    tools:
+      - Read
+      - Write
+      - Edit
+      - Bash
+      - skill_writer
+    output: "lens/{person-slug}/SKILL.md"
+
+tools:
+  corpus_collector:
+    script: "tools/corpus_collector.sh"
+    description: "采集网页和社交媒体内容"
+    args:
+      - --person
+      - --output
+
+  corpus_chunker:
+    script: "tools/corpus_chunker.py"
+    description: "将长文本分块处理"
+    args:
+      - --file
+      - --extract-mode
+      - --output
+
+  skill_writer:
+    script: "tools/skill_writer.py"
+    description: "写入/更新 Skill 文件"
+    args:
+      - --action
+      - --slug
+      - --file
+      - --content
+
+  version_manager:
+    script: "tools/version_manager.py"
+    description: "备份与回滚 Skill 版本"
+    args:
+      - --action
+      - --slug
+      - --version
